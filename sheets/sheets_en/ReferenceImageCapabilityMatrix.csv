@@ -1,0 +1,15 @@
+Reference Image Capability Matrix (new in v2.2: the primary character-consistency methods across models at a glance),,
+"Core takeaway: MJ/Niji and SD (LoRA) have strong consistency methods; among the natural-language family, GPT-4o/Gemini/Flux have reference images while DALL-E 3 has none — verbatim anchor-sentence reuse is its only guarantee and the strictest requirement.",,
+
+Model,Native reference image,Primary character-consistency method,Caveats
+Midjourney v6 / Niji v6,✅ --cref strong support,--cref URL + --cw 80-100,Higher cw = stronger features but lower pose freedom; --no filters only 4-6 short words
+Stable Diffusion 1.5 / XL / 3,LoRA / reference-image extensions,"Train a character LoRA; without LoRA, anchor tags ≥1.5",SD3's text encoder includes T5 so descriptions can be more natural; reference images require ControlNet/IP-Adapter
+Flux (Redux / Kontext),✅ Kontext native reference / Redux variants,Fixed reference image + verbatim anchor-sentence reuse,Redux leans style/variants; Kontext leans identity reference
+GPT-4o image / Gemini 2.5 Flash Image (Nano Banana),✅ Native reference image + conversational editing,First image / previous version as anchor + conversational single-point fixes,The highest-iteration-efficiency route in 2026: fix failures directly in conversation without touching the anchor sentences
+DALL-E 3,❌ Not supported,Description only: verbatim anchor-sentence reuse; synonym rewriting forbidden,"Weakest consistency — recommended deprecated (avoid for multi-image series / consistency-critical scenes); if used, reuse anchor sentences verbatim + prefer conversational alternatives"
+"Jimeng / Kling / Doubao / Tongyi Wanxiang (domestic API family, new in v2.3)",Partial support (per official API docs),Enable reference images when available + verbatim anchor-sentence reuse,"Capabilities vary by vendor — check official docs before integrating; without strong reference methods, treat as DALL-E 3 tier (weak consistency)"
+
+Cross-image consistency strength ranking (weak → strong),,
+DALL-E 3 < Flux < GPT-4o/Gemini (reference) < SD (LoRA) < MJ/Niji (--cref),Strength correlates with external anchoring tools; models with weak tools must compensate with verbatim anchor-sentence reuse.
+
+"Usage rule: before creating a character, fix the target model → check this table for its consistency method → for models without strong methods (DALL-E 3), lock them down with the P0 ""anchor-description reuse"" check in the Checklist.",,

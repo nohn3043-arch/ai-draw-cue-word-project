@@ -1,0 +1,52 @@
+Composition · Camera · Lighting · Layers · Posture (per-generation config),,
+"Select the composition type from the reference table below and apply the sentence template; fill in the remaining fields one by one. Missing lighting and posture were the main root cause of ""wrong emotion"" in v1 outputs.",,
+
+A. Config fill-in area for this generation,,
+Dimension,Options / notes,This selection (example),Negative prompts (exclude conflicts),Notes
+Standard aspect ratio,Choose the frame by use case; validation must check the match,Single-character illustration 3:4,—,Avatar 1:1 / storyboard 16:9
+Composition type,Choose from reference table B,Rule of thirds,"Rigid centered subject, edge cropping",See reference table B
+Camera angle,Low angle / eye level / high angle / ground level,Eye level,"High-angle perspective, low-angle perspective",Low angle = imposing; high angle = small and weak
+Shot scale,Close-up / medium close-up / medium shot / full shot / long shot,Medium shot (half body),"Long-shot vs close-up confusion, cropped head",Use close-up for emotional scenes
+Focal length,35mm / 50mm / 85mm / macro,85mm portrait,"Wide-angle distortion, barrel distortion",85mm is best for portraits
+Depth of field,Shallow / deep,Shallow,"Background overly sharp, uneven blur",Shallow DOF emphasizes the subject
+Light direction,Front / side / back / top light,Side-backlight,"Multiple shadows, contradictory light direction",Backlight needs rim light on the hair
+Light type,Natural / candlelight / moonlight / neon...,Natural daylight,Mixed artificial lights,One single light source is more stable
+Color temperature / time,Golden hour / blue hour / noon...,Golden hour (warm dusk light),"Cool fluorescent feel, gloomy overcast",Golden hour is emotionally most stable
+Weather,Sunny / cloudy / rain / snow / fog,Sunny,"Rain, snowfall, fog",Linked to the scene-conflict category
+Foreground layer,Elements in front of the subject; weight 0.5-0.8,Blurred daisy bushes (0.7),Foreground clutter covering the face,Foreground adds depth
+Midground layer (subject),Layer where the character stands; weight 1.0-1.4,Nanwang standing among the flowers (1.2),Foreground/background stealing the subject,Subject layer = anchor layer
+Background layer,Environment elements; weight 0.7-0.9,Spring garden wall and sky (0.8),"Cluttered background, element pile-up",Keep the background description restrained
+Occlusion,Front/back relations between layers; avoid layer misalignment,"Foreground flowers cover the lower hem, not the face","Flowers covering the face, layer clipping","Basis for the ""correct layering"" validation item"
+Posture,Stand / sit / run / kneel / lean...,Standing with a slight side turn,"Running hard, aggressive movement",Linked to the temperament-conflict category
+Center of gravity / hand gesture,Center of gravity and hand action,Center on right leg; hands naturally at rest,"Odd hand gesture, fist, hands on hips",Linked to the hand-detail category
+Gaze direction,Toward the camera / side / lowered...,Gaze slightly lowered,"Staring at the camera, rolling eyes",Gaze determines emotion
+Garment dynamics,Wind direction and amount of flutter,Skirt gently lifting in the breeze (direction: right),"Garment static, storm-whipped",Consistent with the wind direction
+
+"B. Composition type reference table (apply the sentence template; avoid writing bare ""rule of thirds"")",,
+Composition type,Applicable scenes,Description sentence template,Negative prompts,Common failures
+Centered composition,Avatar close-up / illustration subject,[subject] centered in the frame with balanced margins,"Subject off-center, edge cropping","Subject too large, filling the frame"
+Rule of thirds,Two-character interaction / scene narrative,"[subject] at the left/right third of the frame, with the gaze leading to the other side","Rigid centered subject, stiff composition",Unbalanced background; subject too small
+Leading lines,Deep scenes / roads and corridors,The road/fence/river guides the eye from near to far toward [subject],"No depth, broken perspective",Leading line cutting off the subject
+Framing composition,Windows / doors / tree gaps / arched bridges,"[subject] inside a [window frame/door frame], with the frame occluding part of the background","Frame covering the face, deformed frame","Frame too heavy, stealing the subject"
+Diagonal composition,Dynamic scenes / running / combat,[subject] distributed along the frame diagonal; the action direction aligns with the diagonal,"Horizontal rigid subject, excessive imbalance",Over-tilting loses stability
+Negative-space composition,Mood / emotion / emotional close-up,[subject] in a corner of the frame with large negative space,"Full-bleed, no breathing room",Subject too small to recognize
+
+C. Two-character interaction spatial relations (mandatory for multi-character scenes),,
+Field,Description,Example
+Character A / Character B,Reference the version tags in Character Anchors,Nanwang · Plain-Dress Garden Version / Song Jiuning · Aloof Detached Version
+Positional relation,Left-right / front-back / encircling...,Nanwang front-left; Song Jiuning back-right
+Height difference / distance,Relative height and spacing between the two,Song Jiuning is half a head taller; one arm's length apart
+Gaze line,Who looks at whom and where,Song Jiuning lowers her gaze; Nanwang looks up at her
+Interaction contact point,Holding hands / side by side / passing by...,No contact; only a meeting of gazes
+Posture difference (new in v2.4),Each one's standing/sitting/dynamic posture; reference the Posture-Emotion Mapping Reference Table on the right,Nanwang stands with a slight side turn; Song Jiuning stands upright
+
+D. Posture-Emotion Mapping Reference Table (new in v2.4 — fixes the v1.0 posture zone that was only empty fill-in boxes; linked to the temperament tags in Character Anchors),,
+"Before use, check the temperament tag and weight in the Character Anchors sheet, pick the posture combination from the matching temperament row, and fill it back into the four Section A fields: Posture / Gaze / Center of gravity / Garment dynamics. Free-hand writing is forbidden.",,
+
+Temperament type,Required anchor weight,Recommended stance / seated pose,Gaze direction,Center of gravity / hand gesture,Garment dynamics suggestions,Forbidden postures (linked to the Negative Word Bank),Common failure modes
+"Gentle, quiet, slightly timid",≥1.3,Standing slightly side-on or seated quietly · limbs gathered,Subtly lowered or looking at the ground · not facing the camera,Weight on one leg · hands naturally at rest or lightly clasped at the chest,Skirt drifting slightly · garment subdued · weak direction,Chest out / hands on hips / staring at the camera / large open movements,Stiff puppet-like posture · wandering gaze · overly active expression
+"Aloof, detached, restrained",≥1.3,Standing upright or leaning · straight body lines,Level gaze into the distance or slightly lowered · eyes not on the camera,Weight centered · hands at rest or crossed,Static or barely moving garment · as if windless,Smiles / open dynamics / lively limbs / direct gaze,Too relaxed · warm expression · body leaning visibly
+"Lively, outgoing, spirited",≥1.0,Light hop or forward lean or half turn · clear dynamic lines,Looking at the camera or angled with the motion,Weight shifted forward · hands pointing or swinging naturally,Skirt lifted · hair flying · hem pulled straight,Stiff attention / dull gaze / gathered limbs / blank face,Excessive movement distorting the body · unstable center of gravity
+"Dignified, solemn, grave",≥1.5,Sitting upright or standing straight · no slouching,Level gaze or slight downward gaze · steady unmoving eyes,Weight centered · hands clasped behind the back or on armrests,Garment static · robe hem touching the ground · windless,Slouching / looseness / fidgeting / wandering gaze,Body too stiff losing presence · head-to-body ratio off
+"Sorrowful, introverted, deep",≥1.0,Slightly hunched or seated low or hugging the knees,Lowered or closed eyes or side glance · avoiding direct gaze,Weight lowered · arms wrapped or face covered · limbs drawn in,Garment static · hair covering the face · dark mood,Standing tall / large open postures / bright expression,Overly curled posture making the subject unrecognizable
+"Cold, sharp, alert",≥1.3,Side stance or half-crouch or combat stance,Sharp direct gaze or scanning · locked eyes,Weight lowered · hand on a weapon or loosely gripped · wary,Garment taut · snapping in the wind · clear direction,Relaxed posture / soft gaze / asymmetric slouch,Stiff limbs without power · unstable center of gravity
