@@ -1,6 +1,6 @@
 # AI Drawing Cue-Word Project
 
-> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.3 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
+> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.4 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
 
 This repository is a version-controlled export of a quality-control workbook for single- and
 multi-character AI image generation. The original is a Tencent Docs spreadsheet; this repo stores
@@ -16,10 +16,11 @@ A practical control desk for building high-consistency character prompts across 
 - Stable Diffusion
 - Domestic API models (Jimeng / Kling / Doubao / Tongyi Wanxiang)
 
-v2.3 (vs v2.2) adds: a domestic API-family syntax flow, a DALL·E 3 deprecation
-note (weak consistency, avoid for multi-image series), and an honest framing —
-the setting layer (character anchors / composition / checklist) is universal,
-while the syntax layer is adapted per model family.
+v2.4 (vs v2.3) adds: a posture-to-emotion reference table (Section D in Composition & Shots),
+mapping character temperament labels to pose/gaze/center-of-gravity combinations. Also
+adds a per-character posture-difference field for dual-character scenes.
+v2.3 (vs v2.2) adds: a domestic API-family syntax flow, a DALL·E 3 deprecation note,
+and an honest Adaptable framing.
 
 ## Sub-tables (in `/sheets`)
 
