@@ -1,41 +1,6 @@
-AI Drawing Composition Detail Template — Weight & Ratio Precision Control Edition v2.4 (Adaptable Across All Models),,,
-"Positioning: a quality-control workbench for single/multi-character image generation, covering five syntax families — natural-language flow (Flux/DALL-E 3/SD3), conversational image models (GPT-4o/Gemini), MJ/Niji, SD, and domestic API models (Jimeng/Kling/Doubao/Tongyi Wanxiang). ""Adaptable"" means the setting layer (character anchors / composition / validation) is universal across models, while the syntax layer is adapted per model. v2.4 (vs v2.3) adds: the posture-emotion reference table (Section D; temperament → pose/gaze/center-of-gravity optional mapping) and a posture-difference field for two-character interaction. v2.3 added: the domestic API syntax flow, the DALL-E 3 deprecation note, and the honest adaptability framing.",,,
-
-Workflow (run through once per generation round),,,
 Step,Action,Source sheet,Key point
-1,Fill in/confirm character anchors and image version,Character Anchors,Select composition type from the reference table and apply the sentence template; look up posture by temperament tag in Section D (no free-hand writing)
+1,Fill in/confirm character anchors and image version,Character Anchors,Look up posture by temperament tag in the Posture-Emotion Mapping table (no free-hand writing)
 2,Configure composition / camera / lighting / layers / posture,Composition & Shots,Select composition type from the reference table and apply the sentence template
 3,Determine the model's reference-image method and consistency strategy,Reference Image Capability Matrix,DALL-E 3 has no reference image and is marked deprecated; domestic API reference-image capabilities per official docs
 4,Assemble the final prompt in the model's syntax,Natural Language Prompt Template,Natural-language / conversational / MJ / SD / domestic API syntaxes all differ
 5,Generate → validate → log the iteration,Checklist / Generation Iteration Log,P0 failure must be regenerated
-
-Weight semantics master table (SD/MJ numeric baseline),,,
-Weight range,Semantics,Applies to,Example,Corresponding action
-1.6 - 2.0,Hard anchor: absolutely immutable,Identity anchors / signature features,Mole below left eye (1.8),Force-keep in every scene; add opposites to negative prompts
-1.3 - 1.5,Core feature: kept in all scenes,Face / hairstyle / core outfit,Light mint cotton plain dress (1.4),Cross-scene consistency baseline; validated as P0
-1.0 - 1.2,Baseline feature: default strength,Natural-language main description / auxiliary elements,"Gentle, quiet temperament (1.0)",Fine-tune per scene; fluctuation ≤ 0.2
-0.7 - 0.9,Atmosphere aid: adjustable per scene,Scene elements / decor / weather,Spring garden (0.8),Replaceable when the scene changes
-<0.7,Weak prompt: easily ignored by models,Minor modifiers,Breeze (0.5),Atmosphere only; must not carry key information
-
-Weight → narrative intensity mapping (new in v2.2: natural-language models have no numeric weights; express via this table),,,
-Numeric weight,Semantics,How to express in natural-language models,MJ/Niji expression,Description precision requirement
-1.6 - 2.0,Hard anchor: absolutely immutable,Standalone short sentence + sentence-initial priority + high-precision description (position/material/relative quantifier),First 10 tokens + repeated keywords,Must be concrete enough to draw: tiny / in the hair / below the left eye corner
-1.3 - 1.5,Core feature: kept in all scenes,Standalone short sentence placed early in the character description block,First 20 tokens,Concrete and drawable; abstract adjectives forbidden
-1.0 - 1.2,Baseline feature: default strength,Regular clause carried naturally by the main sentence,Middle section,Plain description is enough
-0.7 - 0.9,Atmosphere aid: adjustable per scene,Environment sentence placed at the very end,Mid-late section,Keywords suffice
-<0.7,Weak prompt: may be omitted,Do not write,Do not write,—
-
-Validation priority (P0 mandatory / P1 recommended / P2 optional),,,
-Priority,Definition,Failure handling
-P0,Core character settings; failure = discard the image,Must adjust and regenerate
-P1,Image quality and proportions; affects usability,Fix first; one retry acceptable
-P2,Aesthetics and details; icing on the cake,Log the issue; improve next round
-
-Cross-model syntax red lines (must read),,,
-Red line,Explanation
-Weight syntax,(word:1.3) works only on SD; MJ relies on token position and repetition; natural-language models forbid bracket weights — rely on narrative structure
-Negative prompts,"MJ --no limited to 4-6 short words; SD uses the Negative Prompt box; Flux/DALL-E/GPT-4o/Gemini have no negative box → write affirmatively first, negate as fallback; domestic API negative-word support per official docs"
-Reference images,"MJ --cref; SD LoRA; Flux Kontext/Redux; GPT-4o/Gemini native reference images; DALL-E 3 has none → description-led, recommended deprecated; domestic API reference capabilities per official docs — see Reference Image Capability Matrix"
-Anchor reuse,"Natural-language models: anchor sentences must be reused verbatim across images; synonym rewriting forbidden (e.g. ""mole"" must not become ""tache"" or ""little spot"")"
-
-Multi-character scenes: reference Character A/B anchors in the two-character interaction block of Composition & Shots; the spatial-relation fields must be filled — do not just write the two character names.,,,

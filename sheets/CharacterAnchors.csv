@@ -1,10 +1,6 @@
-Character Anchors · Image Version Management,,
-"A character may have multiple image versions (Plain-Dress Garden Version / Winter Version / Battle Version...), one row per version; derived versions must reference the master version and note the differences.",,
-
-A. Fill-in area (Nanwang · Plain-Dress Garden Version and Song Jiuning · Aloof Detached Version as examples),,
 Field,Instructions,Nanwang · Plain-Dress Garden Version v1.2,Song Jiuning · Aloof Detached Version v1.0
 Character name / version tag,Character name + image version name + version number,Nanwang · Plain-Dress Garden Version v1.2,Song Jiuning · Aloof Detached Version v1.0
-Master version reference,"Derived versions fill in the source version; the master version fills ""—""",— (master version),— (master version)
+Master version reference,"Derived versions fill in the source version; master version fills ""—""",— (master version),— (master version)
 Differences from master version,Changes of the derived version vs the master version,—,—
 Core identity anchor (≥1.6),Most immutable core setting; force-kept in every scene; replacement forbidden,16-year-old girl; faint brown 1mm mole below the left eye corner; often wears a small white daisy in the hair (1.8),Aloof and detached; drooping eye corners carrying built-in sadness (1.6)
 Core temperament tag (≥1.3),Overall atmosphere baseline of the character; negative prompts exclude conflicting temperaments first,"Gentle and quiet, slightly timid, restrained body language (1.3)",Detached and restrained; sorrow kept inside; smile never reaches the eyes (1.3)
@@ -17,5 +13,3 @@ Skin / hair / eye color,Write all three colors to avoid AI color mixing,Warm whi
 Palette style,Overall palette style keywords,Low-saturation Morandi × Japanese light pastel,High-contrast low-saturation cool tone
 Signature prop,Scene-reusable prop; must appear in both positive and negative prompts,Small white daisy (in the hair),No extra hair accessories
 Usage restrictions (negative anchoring),Forbidden overall directions,No red tones / dark tones / ornate gowns,No sweet styles / vivid colors / exaggerated accessories
-
-"B. When adding a character, copy this sheet's structure; when adding an image version, append a row and fill in the version reference.",,
