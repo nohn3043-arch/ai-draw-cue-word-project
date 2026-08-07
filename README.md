@@ -1,6 +1,6 @@
 # AI Drawing Cue-Word Project
 
-> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.2 (Universal for All Models)
+> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.3 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
 
 This repository is a version-controlled export of a quality-control workbook for single- and
 multi-character AI image generation. The original is a Tencent Docs spreadsheet; this repo stores
@@ -8,15 +8,18 @@ the content as plain CSV (one file per sub-table) plus this README.
 
 ## What it is
 
-A practical control desk for building high-consistency character prompts across four prompt syntax families:
+A practical control desk for building high-consistency character prompts across five prompt syntax families:
 
 - Natural-language flow (Flux / DALL·E 3 / SD3)
 - Conversational image models (GPT-4o / Gemini)
 - Midjourney / Niji
 - Stable Diffusion
+- Domestic API models (Jimeng / Kling / Doubao / Tongyi Wanxiang)
 
-v2.2 (vs v2.1) adds: conversational-model rows, affirmative exclusion strategy,
-weight→narrative-intensity mapping, reference-image capability matrix, and P0 anchor-reuse checks.
+v2.3 (vs v2.2) adds: a domestic API-family syntax flow, a DALL·E 3 deprecation
+note (weak consistency, avoid for multi-image series), and an honest framing —
+the setting layer (character anchors / composition / checklist) is universal,
+while the syntax layer is adapted per model family.
 
 ## Sub-tables (in `/sheets`)
 
@@ -53,9 +56,11 @@ position/precision (see Instructions sheet).
 - Weight syntax `(word:1.3)` works only in SD; MJ relies on token position & repetition;
   natural-language models forbid bracket weights.
 - Negative prompts: MJ `--no` 4-6 short words; SD Negative Prompt box;
-  Flux/DALL·E/GPT-4o/Gemini have no negative box → write affirmatively, negate as fallback.
+  Flux/DALL·E/GPT-4o/Gemini have no negative box → write affirmatively, negate as fallback;
+  domestic API models: negative-prompt support varies, check official docs.
 - Reference images: MJ `--cref`; SD LoRA; Flux Kontext/Redux; GPT-4o/Gemini native;
-  DALL·E 3 none → description-led (see matrix).
+  DALL·E 3 none (deprecated for multi-image series) → description-led;
+  domestic API models: capability per official docs (see matrix).
 - Anchor reuse: natural-language models must reuse anchor sentences verbatim across images;
   no synonym substitution (e.g. "tear mole" must not become "spot" or "small mole").
 
@@ -71,4 +76,5 @@ Original Tencent Docs: https://docs.qq.com/sheet/DT05rb0tCVmVSSVpR
 
 ## License
 
-Content authorship and license are reserved by the original author. Set an explicit license before redistribution.
+Licensed under the Apache License 2.0. See [LICENSE](LICENSE).
+Copyright (c) 2026 NOHN AI TECHNOLOGY PTE LTD. Contact: ai@nohnlins.com.
