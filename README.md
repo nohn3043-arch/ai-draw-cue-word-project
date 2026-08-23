@@ -1,6 +1,6 @@
 # AI Drawing Cue-Word Project
 
-> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.6 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
+> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.7 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
 
 This repository is a version-controlled export of a quality-control workbook for single- and
 multi-character AI image, video, and 3D generation. The original is a Tencent Docs spreadsheet;
@@ -16,6 +16,17 @@ A practical control desk for building high-consistency character prompts across 
 - Stable Diffusion
 - Domestic API models (Jimeng / Kling / Doubao / Tongyi Wanxiang)
 
+v2.7 (vs v2.6) adds: Comic Mode — three new sheets closing the manga/comic generation loop.
+PanelLayoutRules covers 5 layout types (4-panel grid, 6-panel grid, cinematic strip, splash page,
+vertical scroll/webtoon) with panel arrangement, aspect ratio, composition rule, character placement,
+background continuity, prompt assembly rule, visual rhythm control, and common failure per layout.
+SpeechBubblePositioning defines 7 bubble types (standard speech, internal monologue, narration,
+SFX, whisper, shout, electronic/digital) with tail direction, position rule, size rule, text volume,
+shape & style, overlap rule, layer priority, prompt assembly rule, and common failure per bubble type.
+TemporalConsistencyChecklist provides 13 verification items across 6 categories (character identity,
+spatial continuity, temporal continuity, action continuity, expression continuity, costume & prop)
+with severity P0/P1/P2, when to check, what to verify, verification method, pass criteria, fail criteria,
+and fix protocol per item. Total sheet count 18→21.
 v2.6 (vs v2.5) adds: StoryboardSkeletonTemplate — a manga/comic storyboarding skeleton with
 10 panel role templates (establishing, character intro, dialogue A→B, dialogue B→A, action beat,
 reaction, emotional close-up, scene transition, climax splash, resolution), 3 camera continuity
@@ -55,6 +66,9 @@ and an honest Adaptable framing.
 | LoRA管理.csv (LoRA Management) | LoRA type classification (character/style/outfit/concept/background), weight ranges, conflict detection, stacking order, cross-model applicability |
 | 3D生成矩阵.csv (3D Generation Matrix) | Per-model 3D generation capability (Meshy/Tripo3D/Rodin/Hunyuan3D-2/Stable Fast3D/CRM) — input format, output format, texture, topology, identity consistency |
 | 对话式编辑链.csv (Conversational Edit Chain) | Round-by-round single-point fix protocol for GPT-4o/Gemini; anchor boundary rules; failure handling per round |
+| 面板排布规则.csv (Panel Layout Rules) | 5 comic layout types (4-panel / 6-panel / cinematic strip / splash page / vertical scroll) — panel arrangement, aspect ratio, composition rule, character placement, background continuity, prompt assembly, visual rhythm control, common failure |
+| 对话气泡定位.csv (Speech Bubble Positioning) | 7 bubble types (standard speech / internal monologue / narration / SFX / whisper / shout / electronic) — tail direction, position rule, size rule, text volume, shape & style, overlap rule, layer priority, prompt assembly, common failure |
+| 时序一致性验收.csv (Temporal Consistency Checklist) | 13 verification items across 6 categories (character identity / spatial / temporal / action / expression / costume-prop) — severity P0/P1/P2, check timing, verification method, pass criteria, fail criteria, fix protocol |
 | 分镜骨架模板.csv (Storyboard Skeleton Template) | Manga/comic storyboarding skeleton — 10 panel roles, 3 camera continuity rules, 4 page layout patterns; each row has prompt assembly rule, continuity check, common failure |
 | 修改日志.csv (Change Log) | Template revision history |
 
