@@ -1,10 +1,10 @@
 # AI Drawing Cue-Word Project
 
-> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.4 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
+> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.5 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
 
 This repository is a version-controlled export of a quality-control workbook for single- and
-multi-character AI image generation. The original is a Tencent Docs spreadsheet; this repo stores
-the content as plain CSV (one file per sub-table) plus this README.
+multi-character AI image, video, and 3D generation. The original is a Tencent Docs spreadsheet;
+this repo stores the content as plain CSV (one file per sub-table) plus this README.
 
 ## What it is
 
@@ -16,6 +16,13 @@ A practical control desk for building high-consistency character prompts across 
 - Stable Diffusion
 - Domestic API models (Jimeng / Kling / Doubao / Tongyi Wanxiang)
 
+v2.5 (vs v2.4) adds: 5 new sheets covering previously uncovered generation modalities —
+video generation (Sora/Kling/Runway/Pika/domestic API with camera movement and temporal structure),
+multi-character spatial relations (3+ characters with depth layering, gaze chain, interaction chain),
+LoRA management (character/style/outfit/concept/background types with conflict detection and stacking order),
+3D generation matrix (Meshy/Tripo3D/Rodin/Hunyuan3D-2/Stable Fast3D/CRM), and
+conversational edit chain (round-by-round single-point fix protocol for GPT-4o/Gemini with anchor boundary rules).
+Total sheet count 12→17.
 v2.4 (vs v2.3) adds: a posture-to-emotion reference table (Section D in Composition & Shots),
 mapping character temperament labels to pose/gaze/center-of-gravity combinations. Also
 adds a per-character posture-difference field for dual-character scenes.
@@ -37,6 +44,11 @@ and an honest Adaptable framing.
 | 比例基准表.csv (Ratio Baseline) | Head-body ratio per art style (Q-version 2-3, loli 4-5, girl 6-6.5, youth 6.5-7, adult 7-8, realistic 7.5+); tolerance ≤5% |
 | 参考图能力矩阵.csv (Reference Capability Matrix) | Per-model reference-image capability (MJ `--cref`, SD LoRA, Flux Kontext/Redux, GPT-4o/Gemini native, DALL·E 3 none) |
 | 生成迭代日志.csv (Generation Iteration Log) | Per-generation iteration records |
+| 视频生成模板.csv (Video Generation Template) | Per-model video prompt syntax (Sora/Kling/Runway/Pika/domestic API) with camera movement, temporal structure, and cross-frame anchor consistency |
+| 多角色空间关系.csv (Multi-Character Spatial Relations) | 3+ character spatial arrangement, depth layering, gaze chain, interaction chain, occlusion rules, scale perspective |
+| LoRA管理.csv (LoRA Management) | LoRA type classification (character/style/outfit/concept/background), weight ranges, conflict detection, stacking order, cross-model applicability |
+| 3D生成矩阵.csv (3D Generation Matrix) | Per-model 3D generation capability (Meshy/Tripo3D/Rodin/Hunyuan3D-2/Stable Fast3D/CRM) — input format, output format, texture, topology, identity consistency |
+| 对话式编辑链.csv (Conversational Edit Chain) | Round-by-round single-point fix protocol for GPT-4o/Gemini; anchor boundary rules; failure handling per round |
 | 修改日志.csv (Change Log) | Template revision history |
 
 ## Weight semantics (SD / MJ numeric system)
