@@ -1,6 +1,6 @@
 # AI Drawing Cue-Word Project
 
-> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.5 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
+> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.6 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
 
 This repository is a version-controlled export of a quality-control workbook for single- and
 multi-character AI image, video, and 3D generation. The original is a Tencent Docs spreadsheet;
@@ -16,6 +16,12 @@ A practical control desk for building high-consistency character prompts across 
 - Stable Diffusion
 - Domestic API models (Jimeng / Kling / Doubao / Tongyi Wanxiang)
 
+v2.6 (vs v2.5) adds: StoryboardSkeletonTemplate — a manga/comic storyboarding skeleton with
+10 panel role templates (establishing, character intro, dialogue A→B, dialogue B→A, action beat,
+reaction, emotional close-up, scene transition, climax splash, resolution), 3 camera continuity
+rules (180-degree axis, 30-degree rule, eyeline match), and 4 page layout patterns (4-panel grid,
+6-panel grid, cinematic strip, splash page). Each row includes prompt assembly rule, continuity
+check, and common failure mode. Total sheet count 17→18.
 v2.5 (vs v2.4) adds: 5 new sheets covering previously uncovered generation modalities —
 video generation (Sora/Kling/Runway/Pika/domestic API with camera movement and temporal structure),
 multi-character spatial relations (3+ characters with depth layering, gaze chain, interaction chain),
@@ -49,6 +55,7 @@ and an honest Adaptable framing.
 | LoRA管理.csv (LoRA Management) | LoRA type classification (character/style/outfit/concept/background), weight ranges, conflict detection, stacking order, cross-model applicability |
 | 3D生成矩阵.csv (3D Generation Matrix) | Per-model 3D generation capability (Meshy/Tripo3D/Rodin/Hunyuan3D-2/Stable Fast3D/CRM) — input format, output format, texture, topology, identity consistency |
 | 对话式编辑链.csv (Conversational Edit Chain) | Round-by-round single-point fix protocol for GPT-4o/Gemini; anchor boundary rules; failure handling per round |
+| 分镜骨架模板.csv (Storyboard Skeleton Template) | Manga/comic storyboarding skeleton — 10 panel roles, 3 camera continuity rules, 4 page layout patterns; each row has prompt assembly rule, continuity check, common failure |
 | 修改日志.csv (Change Log) | Template revision history |
 
 ## Weight semantics (SD / MJ numeric system)
