@@ -1,6 +1,6 @@
 # AI Drawing Cue-Word Project
 
-> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.7 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
+> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.8 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
 
 This repository is a version-controlled export of a quality-control workbook for single- and
 multi-character AI image, video, and 3D generation. The original is a Tencent Docs spreadsheet;
@@ -16,6 +16,13 @@ A practical control desk for building high-consistency character prompts across 
 - Stable Diffusion
 - Domestic API models (Jimeng / Kling / Doubao / Tongyi Wanxiang)
 
+v2.8 (vs v2.7) marks the separation of data standard from interactive workbench. The 21 CSV
+data sheets remain unchanged. The Cloudflare Pages workbench (www.nohnlins.com/ai-draw/)
+upgrades Comic Mode from static table display to full interactive generation: drag-and-drop
+Word/TXT upload with mammoth.js .docx parsing, automatic story beat splitting, per-panel
+prompt assembly across 4 model families, automatic bubble configuration, and P0 temporal
+consistency checklist auto-generation. Enterprise IP Preset Library upgraded with JSON
+import/export and localStorage persistence.
 v2.7 (vs v2.6) adds: Comic Mode — three new sheets closing the manga/comic generation loop.
 PanelLayoutRules covers 5 layout types (4-panel grid, 6-panel grid, cinematic strip, splash page,
 vertical scroll/webtoon) with panel arrangement, aspect ratio, composition rule, character placement,
