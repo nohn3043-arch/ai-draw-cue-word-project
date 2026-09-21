@@ -53,31 +53,43 @@ adds a per-character posture-difference field for dual-character scenes.
 v2.3 (vs v2.2) adds: a domestic API-family syntax flow, a DALL·E 3 deprecation note,
 and an honest Adaptable framing.
 
+## Quick Start
+
+1. **Anchor characters** — fill in character anchors in `sheets/CharacterAnchors.csv` (hard-anchor weight ≥ 1.6, non-replaceable).
+2. **Select model and reference strategy** — determine the target model and consistency method in `sheets/ModelsAndReferences.csv` and `ReferenceImageCapabilityMatrix.csv` (MJ `--cref` / SD LoRA / Flux Kontext / conversational reference).
+3. **Assemble prompts** — build according to the priority in `sheets/NaturalLanguagePromptTemplate.csv` (hard anchor → core feature → baseline description → atmosphere); for cross-model syntax see "Cross-model syntax red lines".
+4. **Validate** — run P0/P1/P2 with `sheets/Checklist.csv`; for multi-character scenes add `MultiCharacterSpatialRelations.csv`, for comics add `PanelLayoutRules.csv` / `SpeechBubblePositioning.csv` / `TemporalConsistencyChecklist.csv`.
+5. **Log iterations** — record every generation in `sheets/GenerationIterationLog.csv`; after 3 consecutive failures of the same type, switch model or parameter route.
+
+A full walkthrough example is in [`examples/nanwang_spring_garden_prompt.md`](examples/nanwang_spring_garden_prompt.md) (finished prompts for the same character setting across 4 syntax flows).
+
 ## Sub-tables (in `/sheets`)
+
+> File names have been unified to English for GitHub rendering; Chinese original names are shown in parentheses. All 21 sheets map one-to-one with the earlier Chinese export.
 
 | File | Description |
 |---|---|
-| 使用说明.csv (Instructions) | Workflow, weight semantics, weight→narrative mapping, P0/P1/P2 validation, cross-model red lines |
-| 角色锚点.csv (Character Anchors) | Per-character anchor points; anchor weight ≥ 1.6, never replaceable |
-| 构图与镜头.csv (Composition & Shots) | Composition types, lens, light, layering, pose templates; multi-character spatial fields |
-| 特征细节.csv (Feature Details) | Feature-level descriptors |
-| 自然语言叙述模板.csv (NL Narrative Templates) | Assembled prompt templates per syntax family |
-| 模型与参考.csv (Models & References) | Model reference-image means & consistency strategy |
-| 负面词库.csv (Negative Word Library) | Negative prompts per model (MJ `--no` 4-6 words; SD Negative box; affirmative writing for no-negative models) |
-| 校验清单.csv (Checklist) | P0 hard / P1 suggested / P2 optional validation |
-| 比例基准表.csv (Ratio Baseline) | Head-body ratio per art style (Q-version 2-3, loli 4-5, girl 6-6.5, youth 6.5-7, adult 7-8, realistic 7.5+); tolerance ≤5% |
-| 参考图能力矩阵.csv (Reference Capability Matrix) | Per-model reference-image capability (MJ `--cref`, SD LoRA, Flux Kontext/Redux, GPT-4o/Gemini native, DALL·E 3 none) |
-| 生成迭代日志.csv (Generation Iteration Log) | Per-generation iteration records |
-| 视频生成模板.csv (Video Generation Template) | Per-model video prompt syntax (Sora/Kling/Runway/Pika/domestic API) with camera movement, temporal structure, and cross-frame anchor consistency |
-| 多角色空间关系.csv (Multi-Character Spatial Relations) | 3+ character spatial arrangement, depth layering, gaze chain, interaction chain, occlusion rules, scale perspective |
-| LoRA管理.csv (LoRA Management) | LoRA type classification (character/style/outfit/concept/background), weight ranges, conflict detection, stacking order, cross-model applicability |
-| 3D生成矩阵.csv (3D Generation Matrix) | Per-model 3D generation capability (Meshy/Tripo3D/Rodin/Hunyuan3D-2/Stable Fast3D/CRM) — input format, output format, texture, topology, identity consistency |
-| 对话式编辑链.csv (Conversational Edit Chain) | Round-by-round single-point fix protocol for GPT-4o/Gemini; anchor boundary rules; failure handling per round |
-| 面板排布规则.csv (Panel Layout Rules) | 5 comic layout types (4-panel / 6-panel / cinematic strip / splash page / vertical scroll) — panel arrangement, aspect ratio, composition rule, character placement, background continuity, prompt assembly, visual rhythm control, common failure |
-| 对话气泡定位.csv (Speech Bubble Positioning) | 7 bubble types (standard speech / internal monologue / narration / SFX / whisper / shout / electronic) — tail direction, position rule, size rule, text volume, shape & style, overlap rule, layer priority, prompt assembly, common failure |
-| 时序一致性验收.csv (Temporal Consistency Checklist) | 13 verification items across 6 categories (character identity / spatial / temporal / action / expression / costume-prop) — severity P0/P1/P2, check timing, verification method, pass criteria, fail criteria, fix protocol |
-| 分镜骨架模板.csv (Storyboard Skeleton Template) | Manga/comic storyboarding skeleton — 10 panel roles, 3 camera continuity rules, 4 page layout patterns; each row has prompt assembly rule, continuity check, common failure |
-| 修改日志.csv (Change Log) | Template revision history |
+| `Usage.csv` (使用说明) | Workflow, weight semantics, weight→narrative mapping, P0/P1/P2 validation, cross-model red lines |
+| `CharacterAnchors.csv` (角色锚点) | Per-character anchor points; anchor weight ≥ 1.6, never replaceable |
+| `CompositionAndShots.csv` (构图与镜头) | Composition types, lens, light, layering, pose templates; multi-character spatial fields |
+| `FeatureDetails.csv` (特征细节) | Feature-level descriptors |
+| `NaturalLanguagePromptTemplate.csv` (自然语言叙述模板) | Assembled prompt templates per syntax family |
+| `ModelsAndReferences.csv` (模型与参考) | Model reference-image means & consistency strategy |
+| `NegativeWordBank.csv` (负面词库) | Negative prompts per model (MJ `--no` 4-6 words; SD Negative box; affirmative writing for no-negative models) |
+| `Checklist.csv` (校验清单) | P0 hard / P1 suggested / P2 optional validation |
+| `AspectRatioBaselines.csv` (比例基准表) | Head-body ratio per art style (Q-version 2-3, loli 4-5, girl 6-6.5, youth 6.5-7, adult 7-8, realistic 7.5+); tolerance ≤5% |
+| `ReferenceImageCapabilityMatrix.csv` (参考图能力矩阵) | Per-model reference-image capability (MJ `--cref`, SD LoRA, Flux Kontext/Redux, GPT-4o/Gemini native, DALL·E 3 none) |
+| `GenerationIterationLog.csv` (生成迭代日志) | Per-generation iteration records |
+| `VideoGenerationPromptTemplate.csv` (视频生成模板) | Per-model video prompt syntax (Sora/Kling/Runway/Pika/domestic API) with camera movement, temporal structure, and cross-frame anchor consistency |
+| `MultiCharacterSpatialRelations.csv` (多角色空间关系) | 3+ character spatial arrangement, depth layering, gaze chain, interaction chain, occlusion rules, scale perspective |
+| `LoRAManagement.csv` (LoRA管理) | LoRA type classification (character/style/outfit/concept/background), weight ranges, conflict detection, stacking order, cross-model applicability |
+| `ThreeDGenerationMatrix.csv` (3D生成矩阵) | Per-model 3D generation capability (Meshy/Tripo3D/Rodin/Hunyuan3D-2/Stable Fast3D/CRM) — input format, output format, texture, topology, identity consistency |
+| `ConversationalEditChain.csv` (对话式编辑链) | Round-by-round single-point fix protocol for GPT-4o/Gemini; anchor boundary rules; failure handling per round |
+| `PanelLayoutRules.csv` (面板排布规则) | 5 comic layout types (4-panel / 6-panel / cinematic strip / splash page / vertical scroll) — panel arrangement, aspect ratio, composition rule, character placement, background continuity, prompt assembly, visual rhythm control, common failure |
+| `SpeechBubblePositioning.csv` (对话气泡定位) | 7 bubble types (standard speech / internal monologue / narration / SFX / whisper / shout / electronic) — tail direction, position rule, size rule, text volume, shape & style, overlap rule, layer priority, prompt assembly, common failure |
+| `TemporalConsistencyChecklist.csv` (时序一致性验收) | 13 verification items across 6 categories (character identity / spatial / temporal / action / expression / costume-prop) — severity P0/P1/P2, check timing, verification method, pass criteria, fail criteria, fix protocol |
+| `StoryboardSkeletonTemplate.csv` (分镜骨架模板) | Manga/comic storyboarding skeleton — 10 panel roles, 3 camera continuity rules, 4 page layout patterns; each row has prompt assembly rule, continuity check, common failure |
+| `ChangeLog.csv` (修改日志) | Template revision history |
 
 ## Weight semantics (SD / MJ numeric system)
 
