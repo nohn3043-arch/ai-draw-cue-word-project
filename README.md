@@ -1,5 +1,7 @@
 # AI Drawing Cue-Word Project
 
+[简体中文](README-zh.md) | English
+
 > AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.8 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
 
 This repository is a version-controlled export of a quality-control workbook for single- and
