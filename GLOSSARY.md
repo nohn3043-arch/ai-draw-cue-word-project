@@ -27,6 +27,9 @@
 | **LoRA** | 小型微调插件 | 一个几十 MB 的「人物 / 风格补丁」，挂到 SD 上就能稳定复现同一个角色。 |
 | **`--cref` / `--oref`** | MJ 角色参考参数 | Midjourney 里指定角色参考的参数；版本不同名字不同（v6 用 `--cref`，v7 用 `--oref`）。 |
 | **Multi-character scene** | 多角色场景 | 3 个以上角色同框，需要空间关系表来约束层叠、视线链与遮挡。 |
+| **Facing** | 朝向 | 人物身体/面部在屏幕坐标下的指向，六选一令牌：朝镜头 / 背镜头 / 左前 3/4 / 右前 3/4 / 正侧朝左 / 正侧朝右。 |
+| **Motion vector** | 运动向量 | 人物在两拍之间的位移方向与进出画位置，九选一令牌；它管"往哪动"，facing 管"朝哪站"。 |
+| **Camera side** | 轴线侧 | 摄影机站在 180° 轴线的哪一侧；A/B 由首格左右位定义，换侧只能经中性位或越轴运镜。 |
 | **Storyboard / panel** | 分镜 / 面板 | 漫画的一格；分镜骨架规定每一格承担什么叙事职能。 |
 | **Speech bubble** | 对话气泡 | 台词框；类型、尾巴朝向、图层优先级都有规则。 |
 | **Temporal consistency** | 时序一致性 | 前后两张图之间，人物、服装、光线不能变。 |
@@ -55,6 +58,9 @@
 | **LoRA** | A tens-of-MB "character / style patch" you attach to SD to reproduce the same character reliably. |
 | **`--cref` / `--oref`** | Midjourney's character-reference parameters; the name differs by version (v6 uses `--cref`, v7 uses `--oref`). |
 | **Multi-character scene** | Three or more characters in one frame, needing a spatial-relation table to constrain layering, gaze chains and occlusion. |
+| **Facing** | Which way the character's body/face points, in screen coordinates — one of six tokens: toward camera / away from camera / 3q-left / 3q-right / profile-left / profile-right. |
+| **Motion vector** | Direction of displacement between two beats plus whether it enters, crosses or exits the frame — nine tokens. Facing says where they stand; motion vector says where they move. |
+| **Camera side** | Which side of the 180-degree axis the camera sits on; A/B are defined by the scene's first panel, and the side may only change through a neutral or crossing panel. |
 | **Storyboard / panel** | One frame of a comic; the storyboard skeleton defines what narrative job each frame carries. |
 | **Speech bubble** | The dialogue box; type, tail direction and layer priority all follow rules. |
 | **Temporal consistency** | Between two consecutive images, character, clothing and lighting must not change. |

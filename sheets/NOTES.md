@@ -201,3 +201,43 @@ Before creating a character: fix the target model → check this sheet for its c
 ### Stats tip
 
 After 10+ rows, analyze horizontally — which category the failures cluster in, and which weight class to raise; three consecutive occurrences of the same problem means the current model/parameter route needs a switch.
+
+---
+
+## OrientationAndScreenDirection.csv + OrientationTokenBank.csv
+
+### Why these two sheets exist
+
+Every other sheet constrains **where** a character is. None constrained **which way they point**. In practice orientation failures outnumber position failures: a panel can have correct blocking and still read wrong because the character is turned the wrong way, and across cuts that shows up as mirroring, teleporting or an unreadable gaze relationship.
+
+The pair closes that gap with a two-layer design:
+
+- **OrientationTokenBank.csv** is the vocabulary — 19 legal tokens across three fields (`facing` 6 / `motion_vector` 9 / `camera_side` 4), each with a ready-made prompt phrase per language and an anti-example.
+- **OrientationAndScreenDirection.csv** is the rulebook — 3 field definitions plus 8 mechanical assertions (OR-01 … OR-08) and 2 control rules (granularity, notation).
+
+### Token or nothing
+
+Free-text orientation is not valid input anywhere in this standard. `3q-left` is a token; "three quarter facing left side" is not. The whole point is that a validator can compare tokens, and it cannot compare adjectives.
+
+### How the rules bind
+
+| Rule | Level | What it forbids |
+|---|---|---|
+| OR-01 | P0 | A facing sign flip between adjacent panels with no turn panel |
+| OR-02 | P0 | A motion_vector x-component reversal with no turn shot |
+| OR-03 | P0 | An A-side → B-side cut with no neutral or crossing panel |
+| OR-04 | P0 | An `away-from-camera` facing paired with an `advance` motion in one panel |
+| OR-05 | P1 | close-up / ECU as the only source of facing |
+| OR-06 | P1 | 3+ characters in one frame with an identical facing set |
+| OR-07 | P1 | A speech bubble attached to an away-from-camera character |
+| OR-08 | P2 | Gaze vector more than 90° away from the facing vector |
+
+OR-01 … OR-03 duplicate and extend three rows added to **TemporalConsistencyChecklist.csv** (Orientation category, all P0), so the panel-level checklist and the field-level rulebook agree. **MultiCharacterSpatialRelations.csv** gained `Facing assignment` and `Motion vector chain`, which are the multi-character instantiations of the same fields.
+
+### Control resolution
+
+One orientation state per shot. Frame-level orientation description is not a control channel — video models accept orientation change points along the timeline (Kling beat markers, Sora causal paragraphs, Seedance world logic), not per-frame text. Writing "each frame" dilutes the anchor sentences and lowers overall constraint strength.
+
+### Debugging order
+
+When a sequence reads wrong, check in this order: **facing** (is anyone pointing the wrong way) → **motion_vector** (did anything reverse) → **camera_side** (did the axis jump) → shot scale (is a close-up being asked to carry orientation). The first two account for most failures and cost one word each to fix.
