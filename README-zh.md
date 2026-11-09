@@ -2,7 +2,7 @@
 
 [English](README.md) | 简体中文
 
-> AI 绘画构图细节模板 —— 权重与比例精控版 v2.8（全模型可适配：设定层通用，语法层按模型区分）
+> AI 绘画构图细节模板 —— 权重与比例精控版 v3.1（全模型可适配：设定层通用，语法层按模型区分）
 
 本仓库是一份用于单角色与多角色 AI 图像、视频、3D 生成的质量控制工作簿的版本化导出。原始版本为腾讯文档在线表格；本仓库以纯 CSV（每张子表一个文件）保存内容，另附本 README。
 
@@ -16,6 +16,7 @@
 - Stable Diffusion
 - 国内 API 模型（即梦 / 可灵 / 豆包 / 通义万相）
 
+v3.1（相对 v3.0）新增：短剧模式 —— 五张新表，补上以往版本在目标从单图与漫画分格转向竖屏短剧后暴露的缺口。`Params.csv` 是参数层，只装四类量：时长、位置、容差、模型上限；约束被有意排除在外——轴线规则或冻结的锚点句一旦变成参数，就不再是约束。`VerticalDramaFrameRules.csv`（VF-01 至 VF-10）覆盖 1080×1920 画幅锁定、上下排除带、眼高线、景别重算（16:9 的中景到 9:16 就只是一个双人镜上限）、背景从水平链重写为纵向堆叠、双人调度、运镜轴向、字幕与嘴部互斥。`ShortDramaBeatSheet.csv` 给出 7 个节拍（B-00 钩子 → B-06 留钩），以百分比为不变量、秒数为导出值，另附 RULE-01：超过约 90 秒的集靠模板重复而不是等比拉伸。`DialogueLipSyncMatrix.csv` 把“生成时自带音频”（Sora 2 / Veo 3.1 / Seedance 2.5 / MiniMax H3）与“后期口型 pass”（可灵 3.0）分开——这个区别决定了对白能不能靠改提示词修。`CrossEpisodeIdentityLock.csv` 定义六层锁脸（L0 定妆图 → L5 LoRA）加每集再锚定协议，RULE-01 是成本规则：单角色超过约 30 镜才值得开 LoRA。`Checklist.csv` 追加 3 条 P0；`GenerationIterationLog.csv` 加四个定位字段（Episode / Shot ID / Beat ID / Lip-sync method）；`CharacterAnchors.csv` 加一行“比例基准绑定”，使真人短剧版本不会被拿去对头身比表。所有未核实数值标 `[待核: 验证方式=…]`，结构性默认值标 `[评估]`，五张新表里没有一个数字是编的。表数 23 → 28，同时把 README 里滞后的 21 修正为 28。
 v2.8（相对 v2.7）标志着数据标准与交互工作台的分离。21 张 CSV 数据表保持不变。Cloudflare Pages 工作台（www.nohnlins.com/ai-draw/）将漫画模式从静态表格展示升级为全交互生成：拖拽上传 Word/TXT，配合 mammoth.js 解析 .docx，自动切分故事节拍，跨 4 大模型族逐格组装提示词，自动配置气泡，并自动生成 P0 时序一致性检查清单。企业 IP 预设库升级，支持 JSON 导入/导出与 localStorage 持久化。
 
 v2.7（相对 v2.6）新增：漫画模式 —— 三张新表闭环漫画/连环画的生成流程。PanelLayoutRules 覆盖 5 种版式类型（四格网格、六格网格、电影长条、整页大图、竖版条漫/网络漫画），逐一定义分格排布、画幅比例、构图规则、角色位置、背景连续性、提示词组装规则、视觉节奏控制与常见失败。SpeechBubblePositioning 定义 7 种气泡类型（标准对白、内心独白、旁白、拟声词、耳语、呼喊、电子/数字），逐一定义尾部方向、位置规则、尺寸规则、文字量、形状与风格、重叠规则、图层优先级、提示词组装规则与常见失败。TemporalConsistencyChecklist 提供 6 大类共 13 项校验（角色身份、空间连续性、时间连续性、动作连续性、表情连续性、服装与道具），逐项给出严重级 P0/P1/P2、检查时机、校验内容、校验方法、通过标准、失败标准与修复协议。表格总数 18→21。
@@ -30,12 +31,12 @@ v2.3（相对 v2.2）新增：国内 API 族语法流、DALL·E 3 弃用说明�
 
 ## ✦ 系统架构（人话版）
 
-> **一句话：** 这个仓库是一个 **AI 绘画提示词的操控台**——21 张表格，把「祈祷这张脸别崩」变成一份可重复执行的清单。
+> **一句话：** 这个仓库是一个 **AI 绘画提示词的操控台**——28 张表格，把「祈祷这张脸别崩」变成一份可重复执行的清单。
 
 ```mermaid
 flowchart TB
     WB["🌐 Cloudflare Pages 在线工作台 · www.nohnlins.com/ai-draw/<br/>拖拽 Word/TXT 上传 · 漫画模式 · 企业 IP 预设库 JSON 导入导出（v2.8 起）"]
-    DATA["📚 sheets/*.csv —— 21 张数据表，唯一事实来源<br/>CharacterAnchors · CompositionAndShots · ModelsAndReferences · Checklist · PanelLayoutRules · SpeechBubblePositioning · TemporalConsistencyChecklist · StoryboardSkeletonTemplate · GenerationIterationLog …"]
+    DATA["📚 sheets/*.csv —— 28 张数据表，唯一事实来源<br/>CharacterAnchors · CompositionAndShots · ModelsAndReferences · Checklist · PanelLayoutRules · SpeechBubblePositioning · TemporalConsistencyChecklist · StoryboardSkeletonTemplate · Params · ShortDramaBeatSheet · VerticalDramaFrameRules · DialogueLipSyncMatrix · CrossEpisodeIdentityLock · GenerationIterationLog …"]
 
     S1["① sheets/CharacterAnchors.csv<br/>锚定角色 —— 硬锚权重 ≥ 1.6，永不替换"]
     S2["② sheets/ModelsAndReferences.csv + ReferenceImageCapabilityMatrix.csv<br/>选模型 + 参考图策略"]
@@ -84,7 +85,7 @@ flowchart TB
 
 **这张图怎么看**
 
-1. **从上往下读：数据进来，同一个角色出去。** 21 张 CSV 表和在线工作台是两个入口；五步工作流消化它们，把一段提示词交给五个模型家族，五个家族应该还回同一个角色。
+1. **从上往下读：数据进来，同一个角色出去。** 28 张 CSV 表和在线工作台是两个入口；五步工作流消化它们，把一段提示词交给五个模型家族，五个家族应该还回同一个角色。
 2. **每个框都写了真实文件或表名。** `CharacterAnchors.csv`、`ModelsAndReferences.csv`、`NaturalLanguagePromptTemplate.csv`、`Checklist.csv`、`GenerationIterationLog.csv`——打开 `sheets/` 目录可以对照着读。
 3. **真正要紧的边界。** 表格本身就是产品；第 4 步是硬闸门——P0 失败就等于废图，必须重做，而不是继续碰运气。
 
@@ -98,11 +99,13 @@ flowchart TB
 4. **校验** —— 用 `sheets/Checklist.csv` 执行 P0/P1/P2 校验；多角色场景补充 `MultiCharacterSpatialRelations.csv`，漫画补充 `PanelLayoutRules.csv` / `SpeechBubblePositioning.csv` / `TemporalConsistencyChecklist.csv`。
 5. **记录迭代** —— 每次生成都记录到 `sheets/GenerationIterationLog.csv`；同一类型连续 3 次失败后，切换模型或参数路线。
 
+**短剧入口（v3.1）**：先填 `sheets/Params.csv`（`EP_LEN_S`、`SEG_MAX_S`），再从 `ShortDramaBeatSheet.csv` 取节拍顺序、`VerticalDramaFrameRules.csv` 取构图规则、`DialogueLipSyncMatrix.csv` 取对白路线、`CrossEpisodeIdentityLock.csv` 取锁脸层级。插画系列各表仍然适用，唯比例一项例外：真人版本绑定 `VerticalDramaFrameRules`，不把头身比纳入验收。
+
 完整走查示例见 [`examples/nanwang_spring_garden_prompt.md`](examples/nanwang_spring_garden_prompt.md)（同一角色设定在 4 种语法流中的成品提示词）。
 
 ## 子表一览（`/sheets` 目录）
 
-> 文件名已统一为英文以便 GitHub 渲染；中文原名在括号内标注。全部 21 张表与早期中文导出逐一对应。
+> 文件名已统一为英文以便 GitHub 渲染；中文原名在括号内标注。早期 21 张表与中文导出逐一对应；此后新增的 7 张（v3.0 的朝向层、v3.1 的短剧层）为纯新增项，无中文原名。
 
 | 文件 | 说明 |
 |---|---|
@@ -126,6 +129,13 @@ flowchart TB
 | `SpeechBubblePositioning.csv`（对话气泡定位） | 7 种气泡类型（标准对白 / 内心独白 / 旁白 / 拟声词 / 耳语 / 呼喊 / 电子）—— 尾部方向、位置规则、尺寸规则、文字量、形状与风格、重叠规则、图层优先级、提示词组装、常见失败 |
 | `TemporalConsistencyChecklist.csv`（时序一致性验收） | 6 大类共 13 项校验（角色身份 / 空间 / 时间 / 动作 / 表情 / 服装道具）—— 严重级 P0/P1/P2、检查时机、校验方法、通过标准、失败标准、修复协议 |
 | `StoryboardSkeletonTemplate.csv`（分镜骨架模板） | 漫画/连环画分镜骨架 —— 10 种分格角色、3 条镜头连续性规则、4 种页面版式；每行含提示词组装规则、连续性检查、常见失败 |
+| `OrientationTokenBank.csv`（朝向令牌库） | 朝向的词表层 —— 19 个合法令牌（facing 6 / motion_vector 9 / camera_side 4），每个含中英提示词短语与反例；自由文本朝向属非法输入 |
+| `OrientationAndScreenDirection.csv`（朝向与画面方向） | 规则层 —— 3 个字段定义 + 8 条机械断言 OR-01 至 OR-08 + 2 条控制规则 |
+| `Params.csv`（参数表） | 短剧参数层 —— 8 个键（集长、单镜上限、钩子复现间隔、对白切段长度、节拍容差、上下安全带、眼高线）；只装会变的量，不装约束 |
+| `VerticalDramaFrameRules.csv`（竖屏构图规则） | VF-01 至 VF-10 —— 1080×1920 锁定、上下排除带、眼高线、景别重算、背景重写、双人调度、运镜轴向、字幕与嘴部互斥 |
+| `ShortDramaBeatSheet.csv`（分场节奏表） | B-00 至 B-06 竖屏短剧节拍，以百分比为不变量，附 `EP_LEN_S=90` 的秒数展开；RULE-01 规定长集靠模板重复而非等比拉伸 |
+| `DialogueLipSyncMatrix.csv`（口型驱动矩阵） | 逐模型对白路线 —— 生成时原生音频 vs 后期口型 pass、单次台词上限、同框多说话人、失败模式与补救；未核实单元格均标 `[待核]` |
+| `CrossEpisodeIdentityLock.csv`（跨集锁脸分层） | 六层锁脸 L0（定妆图）至 L5（LoRA），加 L6 每集再锚定；RULE-01 规定单角色超约 30 镜才值得开 LoRA |
 | `ChangeLog.csv`（修改日志） | 模板修订历史 |
 
 ## 权重语义（SD / MJ 数值体系）

@@ -2,7 +2,7 @@
 
 [简体中文](README-zh.md) | English
 
-> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v2.8 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
+> AI Painting Composition Detail Template — Weight & Ratio Precision Control Edition v3.1 (Adaptable Across All Models: setting-layer universal, syntax-layer per-model)
 
 This repository is a version-controlled export of a quality-control workbook for single- and
 multi-character AI image, video, and 3D generation. The original is a Tencent Docs spreadsheet;
@@ -18,6 +18,7 @@ A practical control desk for building high-consistency character prompts across 
 - Stable Diffusion
 - Domestic API models (Jimeng / Kling / Doubao / Tongyi Wanxiang)
 
+v3.1 (vs v3.0) adds: Short-Drama Mode — five new sheets closing the gaps that every previous version left open once the target moved from single images and comic panels to vertical short drama. `Params.csv` is the parameter layer and holds only four kinds of quantity — length, position, tolerance, model limit. Constraints are deliberately excluded: an axis rule or a frozen anchor sentence that becomes a parameter stops being a constraint. `VerticalDramaFrameRules.csv` (VF-01 to VF-10) covers the 1080x1920 canvas lock, the top and bottom exclusion bands, eye-line height, shot-size recalibration (a 16:9 medium becomes a two-shot maximum), background re-authoring from horizontal chains to vertical stacks, two-hander staging, camera-move axis, and the subtitle-versus-mouth rule. `ShortDramaBeatSheet.csv` gives 7 beats (B-00 hook → B-06 cliffhanger) written in percentages as the invariant with seconds as a derived expansion, plus RULE-01: episodes longer than roughly 90 s are built by repeating the template, never by proportionally stretching it. `DialogueLipSyncMatrix.csv` separates generation-time audio (Sora 2 / Veo 3.1 / Seedance 2.5 / MiniMax H3) from post-pass lip-sync (Kling 3.0), which is the distinction that decides whether dialogue can be corrected by re-prompting at all. `CrossEpisodeIdentityLock.csv` defines six lock layers (L0 character sheet → L5 LoRA) plus a per-episode re-anchor protocol and RULE-01, a cost rule that defers LoRA until a series exceeds roughly 30 shots per character. Three P0 rows appended to Checklist, four location columns (Episode / Shot ID / Beat ID / Lip-sync method) added to GenerationIterationLog, and one Proportion-baseline-binding row added to CharacterAnchors so a live-action version cannot be validated against the illustration head-to-body table. Every unverified figure is marked [待核: 验证方式=…] and every structural default is marked [评估]; no number in the five new sheets is invented. Sheet count 23 to 28, and the README count is corrected from the stale 21 to 28.
 v2.8 (vs v2.7) marks the separation of data standard from interactive workbench. The 21 CSV
 data sheets remain unchanged. The Cloudflare Pages workbench (www.nohnlins.com/ai-draw/)
 upgrades Comic Mode from static table display to full interactive generation: drag-and-drop
@@ -57,12 +58,12 @@ and an honest Adaptable framing.
 
 ## ✦ Architecture (Plain Language)
 
-> **In one sentence:** this repo is a **control desk for AI image prompts** — 21 spreadsheet sheets that turn "hope the face comes out right" into a repeatable checklist.
+> **In one sentence:** this repo is a **control desk for AI image prompts** — 28 spreadsheet sheets that turn "hope the face comes out right" into a repeatable checklist.
 
 ```mermaid
 flowchart TB
     WB["🌐 Cloudflare Pages workbench · www.nohnlins.com/ai-draw/<br/>drag-and-drop Word/TXT upload · comic mode · enterprise IP preset library (JSON import/export), since v2.8"]
-    DATA["📚 sheets/*.csv — 21 tables, the single source of truth<br/>CharacterAnchors · CompositionAndShots · ModelsAndReferences · Checklist · PanelLayoutRules · SpeechBubblePositioning · TemporalConsistencyChecklist · StoryboardSkeletonTemplate · GenerationIterationLog …"]
+    DATA["📚 sheets/*.csv — 28 tables, the single source of truth<br/>CharacterAnchors · CompositionAndShots · ModelsAndReferences · Checklist · PanelLayoutRules · SpeechBubblePositioning · TemporalConsistencyChecklist · StoryboardSkeletonTemplate · Params · ShortDramaBeatSheet · VerticalDramaFrameRules · DialogueLipSyncMatrix · CrossEpisodeIdentityLock · GenerationIterationLog …"]
 
     S1["① sheets/CharacterAnchors.csv<br/>anchor the character — hard-anchor weight ≥ 1.6, never replaceable"]
     S2["② sheets/ModelsAndReferences.csv + ReferenceImageCapabilityMatrix.csv<br/>pick the model and the reference-image strategy"]
@@ -111,7 +112,7 @@ flowchart TB
 
 **How to read it**
 
-1. **Read top to bottom: data in, one character out.** The 21 CSV tables and the online workbench are the two entries; the five-step workflow consumes them and hands one prompt to five model families, and all five should return the same character.
+1. **Read top to bottom: data in, one character out.** The 28 CSV tables and the online workbench are the two entries; the five-step workflow consumes them and hands one prompt to five model families, and all five should return the same character.
 2. **Every box names the real file or table.** `CharacterAnchors.csv`, `ModelsAndReferences.csv`, `NaturalLanguagePromptTemplate.csv`, `Checklist.csv`, `GenerationIterationLog.csv` — open the `sheets/` folder and read along.
 3. **The boundary that matters.** The tables *are* the product; step 4 is a hard gate — a P0 failure is a wasted image, so you regenerate instead of hoping.
 
@@ -125,11 +126,13 @@ flowchart TB
 4. **Validate** — run P0/P1/P2 with `sheets/Checklist.csv`; for multi-character scenes add `MultiCharacterSpatialRelations.csv`, for comics add `PanelLayoutRules.csv` / `SpeechBubblePositioning.csv` / `TemporalConsistencyChecklist.csv`.
 5. **Log iterations** — record every generation in `sheets/GenerationIterationLog.csv`; after 3 consecutive failures of the same type, switch model or parameter route.
 
+**Short-drama entry point (v3.1):** fill `sheets/Params.csv` first (`EP_LEN_S`, `SEG_MAX_S`), then take the beat order from `ShortDramaBeatSheet.csv`, the framing rules from `VerticalDramaFrameRules.csv`, the dialogue route from `DialogueLipSyncMatrix.csv`, and the lock stack from `CrossEpisodeIdentityLock.csv`. The illustration sheets still apply, except proportion: a live-action version binds to `VerticalDramaFrameRules` and must not be validated against `AspectRatioBaselines`.
+
 A full walkthrough example is in [`examples/nanwang_spring_garden_prompt.md`](examples/nanwang_spring_garden_prompt.md) (finished prompts for the same character setting across 4 syntax flows).
 
 ## Sub-tables (in `/sheets`)
 
-> File names have been unified to English for GitHub rendering; Chinese original names are shown in parentheses. All 21 sheets map one-to-one with the earlier Chinese export.
+> File names have been unified to English for GitHub rendering; Chinese original names are shown in parentheses. The original 21 sheets map one-to-one with the earlier Chinese export; the 7 sheets added since (orientation layer in v3.0, short-drama layer in v3.1) are new additions with no Chinese original.
 
 | File | Description |
 |---|---|
@@ -153,6 +156,13 @@ A full walkthrough example is in [`examples/nanwang_spring_garden_prompt.md`](ex
 | `SpeechBubblePositioning.csv` (对话气泡定位) | 7 bubble types (standard speech / internal monologue / narration / SFX / whisper / shout / electronic) — tail direction, position rule, size rule, text volume, shape & style, overlap rule, layer priority, prompt assembly, common failure |
 | `TemporalConsistencyChecklist.csv` (时序一致性验收) | 13 verification items across 6 categories (character identity / spatial / temporal / action / expression / costume-prop) — severity P0/P1/P2, check timing, verification method, pass criteria, fail criteria, fix protocol |
 | `StoryboardSkeletonTemplate.csv` (分镜骨架模板) | Manga/comic storyboarding skeleton — 10 panel roles, 3 camera continuity rules, 4 page layout patterns; each row has prompt assembly rule, continuity check, common failure |
+| `OrientationTokenBank.csv` (朝向令牌库) | Vocabulary layer for orientation — 19 legal tokens (facing 6 / motion_vector 9 / camera_side 4), each with an EN and ZH prompt phrase plus a counter-example; free-text orientation is invalid input |
+| `OrientationAndScreenDirection.csv` (朝向与画面方向) | Rulebook layer — 3 field definitions, 8 mechanical assertions OR-01 to OR-08, 2 control rules |
+| `Params.csv` (参数表) | Short-drama parameter layer — 8 keys (episode length, per-shot ceiling, hook repeat interval, dialogue chunk length, beat tolerance, safe bands, eye line); holds only what varies, never constraints |
+| `VerticalDramaFrameRules.csv` (竖屏构图规则) | VF-01 to VF-10 — 1080x1920 lock, top/bottom exclusion bands, eye-line height, shot-size recalibration, background re-authoring, two-hander staging, camera-move axis, subtitle-versus-mouth |
+| `ShortDramaBeatSheet.csv` (分场节奏表) | B-00 to B-06 vertical short-drama beats in percentages plus a derived seconds expansion at `EP_LEN_S=90`; RULE-01 builds long episodes by template repetition, not proportional stretch |
+| `DialogueLipSyncMatrix.csv` (口型驱动矩阵) | Per-family dialogue route — generation-time native audio versus post-pass lip-sync, per-call line ceiling, multi-speaker support, failure mode, workaround; every unverified cell marked [待核] |
+| `CrossEpisodeIdentityLock.csv` (跨集锁脸分层) | Six lock layers L0 (character sheet) to L5 (LoRA) plus L6 per-episode re-anchor; RULE-01 defers LoRA until a series exceeds roughly 30 shots per character |
 | `ChangeLog.csv` (修改日志) | Template revision history |
 
 ## Weight semantics (SD / MJ numeric system)

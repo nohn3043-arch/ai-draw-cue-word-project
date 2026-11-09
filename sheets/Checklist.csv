@@ -12,3 +12,6 @@ P2,Layering correct,No misalignment/clipping among foreground/midground/backgrou
 P2,Negative space compliant,The subject does not cover the reserved negative-space area,No occlusion,✅/❌,Switch to negative-space composition / move the subject to the edge
 P2,No color conflict,Scene + character palette has no incongruent colors,No color conflict,✅/❌,Add palette positive words + color negative words
 P2,Lighting consistent,Light direction matches the description; no contradictory shadows,Single light source,✅/❌,Unify the light direction/type description
+P0,Vertical safe-band compliance,"No face, mouth or key prop inside the top or bottom exclusion band",Per Params SAFE_TOP_PCT / SAFE_BOTTOM_PCT,✅/❌,Recompose per VerticalDramaFrameRules VF-02 / VF-03
+P0,Cross-episode anchor identity,Anchor sentences byte-identical to the registry across every episode; no synonym drift,Zero diff against registry,✅/❌,Restore registry text verbatim and regenerate (CrossEpisodeIdentityLock L1 / L6)
+P0,Lip-sync frame alignment,Mouth closure on bilabials and at line end aligns with the audio,Drift within tolerance [待核: 验证方式=逐帧步进实测],✅/❌,Re-run the lip-sync pass with a shorter chunk (DialogueLipSyncMatrix)

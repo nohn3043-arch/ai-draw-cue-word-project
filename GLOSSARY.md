@@ -37,6 +37,12 @@
 | **Iteration log** | 迭代日志 | 每次出图都记一笔；同类型连续失败 3 次，就换模型或换参数路线。 |
 | **Aspect-ratio baseline** | 比例基准 | 不同画风的身头比标准（Q 版 2–3、写实 7.5+），容差 ≤ 5%。 |
 | **Cloudflare Pages workbench** | 在线工作台 | www.nohnlins.com/ai-draw/ —— 把 CSV 数据标准变成可交互的生成界面。 |
+| **Vertical safe band** | 竖屏安全带 | 画面上下不能放脸和关键道具的条带；平台 UI、字幕和交互按钮会盖在那里。 |
+| **Beat sheet** | 分场节奏表 | 一集里钩子、冲突、反转、留钩各占多长；用百分比写，换集长不用重写。 |
+| **Parameter lock** | 参数表 | 只放会变的量（时长、位置、容差、模型上限）；约束不进参数表，进去就会被当成可选项。 |
+| **Lip-sync pass** | 口型后期 | 先出片再按音频驱动嘴型的一步；和“生成时自带音频”是两条不同路线。 |
+| **Identity lock layer** | 锁脸层级 | L0 定妆图到 L5 LoRA 的六层，用得越深越贵，超过约 30 镜才值得开 LoRA。 |
+| **Snapshot** | 参数快照 | 表里公式导出成纯数值后的存档；不存快照，半年后没人知道那张表是哪套参数算的。 |
 
 ---
 
@@ -68,6 +74,12 @@
 | **Iteration log** | One entry per generation; three consecutive failures of the same type means switching model or parameter route. |
 | **Aspect-ratio baseline** | The head-to-body ratio standard for each style (chibi 2–3, realistic 7.5+), tolerance ≤ 5%. |
 | **Cloudflare Pages workbench** | www.nohnlins.com/ai-draw/ — turns the CSV data standard into an interactive generation interface. |
+| **Vertical safe band** | The top and bottom strips where no face or key prop may sit, because platform UI, subtitles and buttons cover them. |
+| **Beat sheet** | How much of an episode the hook, conflict, reveal and cliffhanger each get; written in percentages so a new episode length needs no rewrite. |
+| **Parameter lock** | A table holding only what varies (length, position, tolerance, model limits). Constraints stay out of it, or they get treated as options. |
+| **Lip-sync pass** | Generating the clip first, then driving the mouth from audio; a different route from models that generate audio natively. |
+| **Identity lock layer** | Six layers from the character sheet (L0) to a LoRA (L5); the deeper the layer the higher the cost, and L5 only pays off past roughly 30 shots. |
+| **Snapshot** | The archive left when formulas are exported as plain numbers; without it nobody can tell which parameter set produced the table. |
 
 ---
 
